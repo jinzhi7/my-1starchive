@@ -17,9 +17,11 @@
 
     <script>
         function initialize() {
-            const now = new Date();
-            const dateStr = now.toLocaleDateString('en-GB');
-            const timeStr = now.toLocaleTimeString('en-GB', { hour12: false });
+            // Add a "random" number to the end of the URL to force the browser to ignore the cache
+const now = new Date();
+const dateStr = now.toLocaleDateString('en-GB'); 
+const timeStr = now.toLocaleTimeString('en-GB', { hour12: false });
+console.log("Current Date Detected: " + dateStr); // This helps us debug
             
             document.getElementById('status').innerText = "SYSTEM ACTIVE";
             document.getElementById('ticker').innerText = " >> DATE: " + dateStr + " | TIME: " + timeStr + " >> ";
