@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body { margin: 0; height: 100vh; background: #050505; color: #00f2ff; font-family: 'Courier New', monospace; 
+               display: flex; flex-direction: column; justify-content: center; align-items: center; overflow: hidden; }
+        #dashboard { text-align: center; border: 1px solid #00f2ff; padding: 50px; border-radius: 10px; 
+                     background: rgba(0, 20, 30, 0.3); box-shadow: 0 0 20px rgba(0, 242, 255, 0.2); }
+        button { background: transparent; border: 1px solid #00f2ff; color: #00f2ff; padding: 15px 30px; 
+                 cursor: pointer; font-size: 1.2rem; text-transform: uppercase; letter-spacing: 2px; }
+        button:hover { background: #00f2ff; color: #000; }
+        #ticker { position: fixed; bottom: 30px; width: 80%; border-top: 1px solid #00f2ff; padding-top: 10px; 
+                  white-space: nowrap; overflow: hidden; font-size: 1.2rem; opacity: 0.8; }
+    </style>
+</head>
+<body>
+
+    <div id="dashboard">
+        <h1 id="status">ARCHIVE STANDBY</h1>
+        <button onclick="initialize()">INITIALIZE SYSTEM</button>
+    </div>
+
+    <div id="ticker"> >> READY FOR INPUT... WAITING FOR CURATOR... >> </div>
+
+    <script>
+        function initialize() {
+            document.getElementById('status').innerText = "SYSTEM ACTIVE";
+            
+            const now = new Date();
+            const dateStr = now.getDate() + "/" + (now.getMonth() + 1) + "/" + now.getFullYear();
+            const timeStr = now.toLocaleTimeString();
+
+            const message = "Access granted. Today is " + dateStr + ". The time is " + timeStr + ". All systems nominal.";
+            
+            document.getElementById('ticker').innerText = " >> " + message + " >> ";
+            
+            const msg = new SpeechSynthesisUtterance(message);
+            window.speechSynthesis.speak(msg);
+        }
+    </script>
+</body>
+</html>
