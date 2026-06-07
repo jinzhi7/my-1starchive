@@ -1,31 +1,32 @@
-<script>
-    function updateDashboard() {
-        const now = new Date();
-        
-        // 1. Force DD/MM/YYYY format
-        const day = String(now.getDate()).padStart(2, '0');
-        const month = String(now.getMonth() + 1).padStart(2, '0');
-        const year = now.getFullYear();
-        const dateStr = `${day}/${month}/${year}`;
-        
-        // 2. Force HH:MM:SS format (24-hour)
-        const timeStr = now.toLocaleTimeString('en-GB', { hour12: false });
-        
-        // 3. Update the display
-        const message = "Access granted. Today is " + dateStr + ". The time is " + timeStr + ". All systems nominal.";
-        document.getElementById('ticker').innerText = " >> " + message + " >> ";
-    }
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body { margin: 0; height: 100vh; background: #050505; color: #00f2ff; font-family: monospace;
+               display: flex; flex-direction: column; justify-content: center; align-items: center; }
+        #dashboard { text-align: center; border: 1px solid #00f2ff; padding: 50px; }
+        button { background: transparent; color: #00f2ff; border: 1px solid #00f2ff; padding: 15px; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <div id="dashboard">
+        <h1 id="status">ARCHIVE STANDBY</h1>
+        <button onclick="initialize()">INITIALIZE SYSTEM</button>
+    </div>
+    <div id="ticker" style="margin-top: 20px;"> >> READY FOR INPUT... >> </div>
 
-    // Run once immediately when page loads
-    updateDashboard();
-
-    // Triggered by your button
-    function initialize() {
-        document.getElementById('status').innerText = "SYSTEM ACTIVE";
-        updateDashboard(); // Refresh date/time when button is clicked
-        
-        const tickerText = document.getElementById('ticker').innerText;
-        const msg = new SpeechSynthesisUtterance(tickerText);
-        window.speechSynthesis.speak(msg);
-    }
-</script>
+    <script>
+        function initialize() {
+            const now = new Date();
+            const dateStr = now.toLocaleDateString('en-GB');
+            const timeStr = now.toLocaleTimeString('en-GB', { hour12: false });
+            
+            document.getElementById('status').innerText = "SYSTEM ACTIVE";
+            document.getElementById('ticker').innerText = " >> DATE: " + dateStr + " | TIME: " + timeStr + " >> ";
+            
+            const msg = new SpeechSynthesisUtterance("System active. Today is " + dateStr);
+            window.speechSynthesis.speak(msg);
+        }
+    </script>
+</body>
+</html>
