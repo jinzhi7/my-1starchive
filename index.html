@@ -26,9 +26,13 @@
         function initialize() {
             document.getElementById('status').innerText = "SYSTEM ACTIVE";
             
+          // Get Time & Date explicitly
             const now = new Date();
-            const dateStr = now.getDate() + "/" + (now.getMonth() + 1) + "/" + now.getFullYear();
-            const timeStr = now.toLocaleTimeString();
+            const day = String(now.getDate()).padStart(2, '0');
+            const month = String(now.getMonth() + 1).padStart(2, '0');
+            const year = now.getFullYear();
+            const dateStr = day + "/" + month + "/" + year;
+            const timeStr = now.toLocaleTimeString('en-GB'); // 'en-GB' forces 24-hour time/correct order
 
             const message = "Access granted. Today is " + dateStr + ". The time is " + timeStr + ". All systems nominal.";
             
